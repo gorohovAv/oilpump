@@ -18,10 +18,15 @@ class EntryData(BaseModel):
 app = FastAPI()
 
 @app.get("/") # view 
-async def makeCalculation(emergency_volume: float, regular_volume: float, filling_time: float):
-    machine = Machine(emergency_volume, regular_volume, filling_time)
+async def makeCalculation(target_volume: float, filling_time: float, pmin: float):
+    machine = Machine(target_volume, filling_time, pmin)
     return {
-        "gfbdfbdfbdfbdf": f"gs{name}"
+        "Типоразмер": f"{machine.pump_name}",
+        #"Нормальный расход":f"{machine.regular_volume}",
+        #"Аварийный расход":f"{machine.emergency_volume}",
+        "Уставка реле давления":f"{machine.p_plus}",
+        "Объем котла": f"{machine.final_volume}",
+        "Подача насоса": f"{machine.final_feed}"
     }
 
 if __name__ == "__main__": 
